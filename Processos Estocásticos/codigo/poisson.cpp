@@ -16,7 +16,9 @@ int poisson(float lambda)
     float accum = 1;
     float u;
 
+    u = random();
     accum *= u;
+    
     while(accum > exp(-lambda))
     {
         u = random();
