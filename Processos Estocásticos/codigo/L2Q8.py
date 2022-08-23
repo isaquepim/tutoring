@@ -1,6 +1,10 @@
 from random import random
-from scipy.stats import norm
+from scipy.stats import norm, beta
 from math import sqrt, sin, asin
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 def experimento():
     P = [[1.0, 0.0, 0.0, 0.0],
@@ -39,6 +43,20 @@ def arcsine_interval(p_hat, n, alpha):
 
     return (sin(asin(sqrt(p_hat))-z/(2*sqrt(n)))**2, sin(asin(sqrt(p_hat))+z/(2*sqrt(n)))**2)
 
+
+def posterior_jeffrey(n, ns):
+    a = ns + 0.5
+    b = n - ns + 0.5
+
+    fig, ax = plt.subplots(1, 1)
+    x = np.linspace(beta.ppf(0.01, a, b),
+                beta.ppf(0.99, a, b), 100)
+    ax.plot(x, beta.pdf(x, a, b),
+       'r-', lw=5, alpha=0.6)
+    plt.show()
+
+
+
 def main() -> None:
 
     n_sim = 100
@@ -56,6 +74,8 @@ def main() -> None:
     print(f'Intervalo de confiança de Wald: ({wald[0]:.5f},{wald[1]:.5f})')
     print(f'Intervalo de confiança Agresti-Coull: ({a_coull[0]:.5f},{a_coull[1]:.5f})')
     print(f'Intervalo de confiança com Arco-seno: ({arcsin[0]:.5f},{arcsin[1]:.5f})')
+
+    posterior_jeffrey(n_sim, soma)
 
 
 if __name__ == '__main__':
