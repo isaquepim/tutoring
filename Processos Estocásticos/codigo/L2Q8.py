@@ -23,7 +23,6 @@ def experimento():
                 state = idx
                 break
             accum += p
-
     if state:
         return 0
     return 1 
@@ -40,9 +39,7 @@ def agresti_coull(n, ns, alpha):
 
 def arcsine_interval(p_hat, n, alpha):
     z = norm.ppf(1-alpha/2)
-
     return (sin(asin(sqrt(p_hat))-z/(2*sqrt(n)))**2, sin(asin(sqrt(p_hat))+z/(2*sqrt(n)))**2)
-
 
 def posterior_jeffrey(n, ns):
     a = ns + 0.5
@@ -57,9 +54,13 @@ def posterior_jeffrey(n, ns):
 
 
 
+
+
+
+
 def main() -> None:
 
-    n_sim = 100
+    n_sim = 1000
 
     soma = 0
     for _ in range(n_sim):
